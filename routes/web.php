@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -13,24 +14,12 @@ Route::get('/contact', function () {
     return view('contact', ['title' => 'Contact Me']);
 });
 route::get('/posts', function () {
-    return view('posts', ['title' => 'Blog', 'posts'=>[
-        [
-        'title'=> 'Hari pertama',
-        'author'=>'I Made Arudea Deniafinder Gotama',
-        'body'=>'Instalasi laragon dan mempelajari struktur folder laravel'
-        ],
-        [
-        'title'=> 'Hari kedua',
-        'author'=>'I Made Arudea Deniafinder Gotama',
-        'body'=>'Mempejari Blade Component'
-        ],
-        [
-        'title'=> 'Hari ketiga',
-        'author'=>'I Made Arudea Deniafinder Gotama',
-        'body'=>'?'
-        ],
-        ]
-    ]);
+    $post = Post::all();
+    return view('post', ['title' => 'Blog', 'posts'=>$post]);
+});
+
+Route::get('/postblog', function () {
+    return view('postblog' , ['title' => 'Upload Your blog']);
 });
 
 
