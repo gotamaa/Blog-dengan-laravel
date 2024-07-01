@@ -2,6 +2,9 @@
 
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MakePostController;
+
+Route::resource('posts', MakePostController::class);
 
 Route::get('/', function () {
     return view('home' , ['title' => 'Home Page']);
@@ -15,7 +18,7 @@ Route::get('/contact', function () {
 });
 route::get('/posts', function () {
     $post = Post::all();
-    return view('post', ['title' => 'Blog', 'posts'=>$post]);
+    return view('posts', ['title' => 'Blog', 'posts'=>$post]);
 });
 
 Route::get('/postblog', function () {

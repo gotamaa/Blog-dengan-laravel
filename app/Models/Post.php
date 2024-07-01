@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Controllers\MakePostController;
 
 class Post extends Model
 {
     use HasFactory;
-    protected $fillable = ['authot','title','body'];
+    protected $table = 'blog';
+    protected $fillable = ['title', 'author', 'body'];
 }

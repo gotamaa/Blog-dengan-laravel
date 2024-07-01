@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Illuminate\Http\RedirectResponse;
 
 class MakePostController extends Controller
 {
@@ -12,7 +14,8 @@ class MakePostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::all();
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -20,15 +23,25 @@ class MakePostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request) : RedirectResponse
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'authtor' => 'required|string|max:255',
+            'body' => 'required|string',
+        ]);
+        $post= new Post();
+        $post->title->$request['title'];
+        $post->author->$request['author'];
+        $post->body->$request['body'];
+        $post->save();
+        return redirect('/posts');
     }
 
     /**
