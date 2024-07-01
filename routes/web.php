@@ -3,6 +3,7 @@
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MakePostController;
+use App\Models\User;
 
 Route::resource('posts', MakePostController::class);
 
@@ -24,5 +25,9 @@ route::get('/posts', function () {
 Route::get('/postblog', function () {
     return view('postblog' , ['title' => 'Upload Your blog']);
 });
+route::get('/authors/{user}', function (User $user) {
+    return view('posts', ['title' => 'Article by'. $user->name, 'posts'=>$user->posts]);
+});
+
 
 

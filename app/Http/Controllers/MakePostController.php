@@ -23,13 +23,15 @@ class MakePostController extends Controller
      */
     public function create()
     {
+
+        $post = Post::create();
         return view('posts.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) : RedirectResponse
+    public function store(Request $request)
     {
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',

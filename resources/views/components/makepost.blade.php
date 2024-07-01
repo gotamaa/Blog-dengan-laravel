@@ -9,7 +9,7 @@
     <title>Buat Blog Baru</title>
 </head>
 <body>
-    <form action="{{ route('posts.store') }}" method="POST">
+    <form action="{{ route('posts.create') }}" method="POST">
         @csrf
         <div>
             <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Title</label>
