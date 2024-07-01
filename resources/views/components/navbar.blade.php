@@ -23,7 +23,7 @@
                     <x-nav-link href="/posts" :active="request()->Is('posts')">Blog</x-nav-link>
                     <x-nav-link href="/about" :active="request()->Is('about')">About</x-nav-link>
                     <x-nav-link href="/contact" :active="request()->Is('contact')">Contact</x-nav-link>
-                    <x-nav-link href="/postblog" :active="request()->Is('postblog')">Post a Blog</x-nav-link>
+                    <x-nav-link href="/postblog" :active="request()->Is('postblog')">Post Your Article</x-nav-link>
                 </div>
             </div>
             </div>

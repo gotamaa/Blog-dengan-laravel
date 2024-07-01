@@ -26,7 +26,7 @@ Route::get('/postblog', function () {
     return view('postblog' , ['title' => 'Upload Your blog']);
 });
 route::get('/authors/{user}', function (User $user) {
-    return view('posts', ['title' => 'Article by'. $user->name, 'posts'=>$user->posts]);
+    return view('posts', ['title' => 'Article By ' .$user->name, 'posts'=>$user->posts]);
 });
 
 
