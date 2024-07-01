@@ -1,13 +1,12 @@
 <?php
-
-namespace Database\Factories;
-
+namespace Database\Factories;use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Cattegorie>
  */
-class CattegoriesFactory extends Factory
+class CattegorieFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +16,7 @@ class CattegoriesFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name'=>fake()->words(3, true)
         ];
     }
 }

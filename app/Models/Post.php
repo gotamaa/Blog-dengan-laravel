@@ -16,4 +16,8 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function cattegorie() :BelongsTo
+    {
+        return $this->belongsTo(Cattegorie::class);
+    }
 }

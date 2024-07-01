@@ -1,6 +1,8 @@
 <?php
 
 namespace Database\Factories;
+
+use App\Models\Cattegorie;
 use App\Models\User;
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -21,6 +23,7 @@ class PostFactory extends Factory
         return [
             'title'=>fake()->sentence(),
             'author_id'=>User::factory(),
+            'cattegorie_id'=>Cattegorie::factory(),
             'body'=>fake()->text(),
 
             //

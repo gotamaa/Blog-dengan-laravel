@@ -13,7 +13,7 @@
         <article class ="py max-w-screen-md border-b border-gray-300">
             <h2 class="mb-1 text-2xl tracking-tigh font-bold text-gray-700">{{$post['title']}}</h2>
             <div class="text-base text-gray-400">
-                <a href="/authors/{{$post->author->id}}"class="hover:underline">{{$post->author->name}}</a> {{$post->created_at}}
+                <a href="/authors/{{$post->author->id}}"class="hover:underline">{{$post->author->name}}</a> <a href="/cattegories/{{$post->cattegorie->id}}"class="hover:underline">| {{$post->cattegorie->name}}</a> | {{$post->created_at}}
             </div>
             <p class = "my-4 font-light">
                 {{$post['body']}}

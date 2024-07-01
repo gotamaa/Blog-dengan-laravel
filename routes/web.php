@@ -3,7 +3,9 @@
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MakePostController;
+use App\Models\Cattegorie;
 use App\Models\User;
+use Faker\Extension\CountryExtension;
 
 Route::resource('posts', MakePostController::class);
 
@@ -26,7 +28,10 @@ Route::get('/postblog', function () {
     return view('postblog' , ['title' => 'Upload Your blog']);
 });
 route::get('/authors/{user}', function (User $user) {
-    return view('posts', ['title' => 'Article By ' .$user->name, 'posts'=>$user->posts]);
+    return view('posts', ['title' => Count($user->posts) . ' Article By ' .$user->name, 'posts'=>$user->posts]);
+});
+route::get('/cattegories/{cattegorie}', function (Cattegorie $cattegorie) {
+    return view('posts', ['title' => 'Sort By ' .$cattegorie->name, 'posts'=>$cattegorie->posts]);
 });
 
 
