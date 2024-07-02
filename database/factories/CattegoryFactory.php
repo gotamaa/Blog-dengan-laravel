@@ -4,9 +4,9 @@ use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Cattegorie>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Cattegory>
  */
-class CattegorieFactory extends Factory
+class CattegoryFactory extends Factory
 {
     /**
      * Define the model's default state.
