@@ -1,6 +1,7 @@
 <?php
-namespace Database\Factories;use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+
+namespace Database\Factories;
+
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,6 +18,7 @@ class CattegoryFactory extends Factory
     {
         return [
             'name'=>fake()->words(3, true)
+            //
         ];
     }
 }

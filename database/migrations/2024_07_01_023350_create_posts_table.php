@@ -18,9 +18,9 @@ return new class extends Migration
                 table: 'users',
                 indexName: 'posts_author_id'
             );
-            $table->foreignId('cattegorie_id')->constrained(
+            $table->foreignId('cattegory_id')->constrained(
                 table: 'cattegories',
-                indexName: 'posts_cattegorie_id'
+                indexName: 'posts_cattegory_id'
             );
             $table->string('body');
             $table->timestamps();

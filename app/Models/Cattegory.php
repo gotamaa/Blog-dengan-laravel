@@ -15,6 +15,6 @@ class Cattegory extends Model
 
     public function posts(): HasMany
     {
-        return $this->hasMany(Post::class, 'cattegorie_id' );
+        return $this->hasMany(Post::class, 'cattegory_id' );
     }
 }
