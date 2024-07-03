@@ -8,6 +8,7 @@
 </head>
 <body>
     <x-layout>
+        <x-searchbar></x-searchbar>
         <x-slot:title>{{ $title }}</x-slot:title>
             <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-0">
                 <div class="grid gap-8 lg:grid-cols-4">
