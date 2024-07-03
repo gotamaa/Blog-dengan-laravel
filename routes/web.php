@@ -20,17 +20,20 @@ Route::get('/contact', function () {
     return view('contact', ['title' => 'Contact Me']);
 });
 route::get('/posts', function () {
-    $post = Post::all();
-    return view('posts', ['title' => 'Blog', 'posts'=>$post]);
+    // $post = Post::with(['author', 'cattegory'])->latest()->get();
+    $posts = Post::latest()->get();
+    return view('posts', ['title' => 'Blog', 'posts'=>$posts]);
 });
 
 Route::get('/postblog', function () {
     return view('postblog' , ['title' => 'Upload Your blog']);
 });
 route::get('/authors/{user}', function (User $user) {
+    // $posts = $user->posts->load(['author','cattegory']);
     return view('posts', ['title' => Count($user->posts) . ' Article By ' .$user->name, 'posts'=>$user->posts]);
 });
 route::get('/cattegories/{cattegory}', function (Cattegory $cattegory) {
+    // $posts = $cattegory->posts->load(['author','cattegory']);
     return view('posts', ['title' => 'Article in ' .$cattegory->name, 'posts'=>$cattegory->posts]);
 });
 
