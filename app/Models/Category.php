@@ -10,11 +10,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Category extends Model
 {
     use HasFactory;
-    protected $table ='cattegories';
-    protected $fillable=['name'];
+    protected $table ='categories';
+    protected $fillable=['name', 'slug'];
 
     public function posts(): HasMany
     {
-        return $this->hasMany(Post::class, 'cattegory_id' );
+        return $this->hasMany(Post::class, 'category_id' );
     }
 }

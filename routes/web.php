@@ -3,7 +3,7 @@
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MakePostController;
-use App\Models\Cattegory;
+use App\Models\Category;
 use App\Models\User;
 use Faker\Extension\CountryExtension;
 
@@ -32,9 +32,11 @@ route::get('/authors/{user}', function (User $user) {
     // $posts = $user->posts->load(['author','cattegory']);
     return view('posts', ['title' => Count($user->posts) . ' Article By ' .$user->name, 'posts'=>$user->posts]);
 });
-route::get('/cattegories/{cattegory}', function (Cattegory $cattegory) {
-    // $posts = $cattegory->posts->load(['author','cattegory']);
-    return view('posts', ['title' => 'Article in ' .$cattegory->name, 'posts'=>$cattegory->posts]);
+route::get('/posts/{post:slug}', function (Post $post){
+    return view('post', ['title' => 'Single Post', 'post'=>$post]);
+});
+route::get('/categories/{category:slug}', function (Category $category) {
+    return view('posts', ['title' => 'Article in ' .$category->name, 'posts'=>$category->posts]);
 });
 
 

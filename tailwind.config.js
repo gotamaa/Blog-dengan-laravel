@@ -37,6 +37,8 @@ export default {
     plugins: [
         require('@tailwindcss/forms'),
         require('flowbite/plugin'),
+        require('flowbite-typography'),
+
     ],
 }
 }

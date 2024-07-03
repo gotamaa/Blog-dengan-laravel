@@ -15,8 +15,8 @@ class CategorySeeder extends Seeder
     {
         Category::create(
             [
-                'name'=>'Teknologi',
-                'slug'=>'teknologi',
+                'name'=>'Teknologi informasi',
+                'slug'=>'teknologi-informasi',
 
             ]);
         Category::create(
