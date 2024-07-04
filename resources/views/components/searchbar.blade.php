@@ -13,6 +13,9 @@
         @if (request('category'))
         <input type="hidden" name="category" value="{{request('category')}}">
         @endif
+        @if (request('author'))
+        <input type="hidden" name="author" value="{{request('author')}}">
+        @endif
 
         <label for="fsearch" class="sr-only">Search</label>
         <div class="relative w-full">

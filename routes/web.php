@@ -22,13 +22,13 @@ Route::get('/contact', function () {
 route::get('/posts', function () {
     if(request('search')){
     }
-    return view('posts', ['title' => 'Blog', 'posts'=>Post::filter(request(['search','category']))->latest()->get()]);
+    return view('posts', ['title' => 'Blog', 'posts'=>Post::filter(request(['search','category','author']))->latest()->get()]);
 });
 
 Route::get('/postblog', function () {
     return view('postblog' , ['title' => 'Upload Your blog']);
 });
-route::get('/authors/{user}', function (User $user) {
+route::get('/author/{user}', function (User $user) {
     // $posts = $user->posts->load(['author','cattegory']);
     return view('posts', ['title' => Count($user->posts) . ' Article By ' .$user->name, 'posts'=>$user->posts]);
 });

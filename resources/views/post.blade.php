@@ -19,9 +19,11 @@
                     <div class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
                         <img class="mr-4 w-16 h-16 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-2.jpg" alt="Jese Leos">
                         <div>
-                            <a href="#" rel="author" class="text-xl font-bold text-gray-900 dark:text-white">{{$post->author->name}}</a>
-                            <p class="text-base text-gray-500 dark:text-gray-400">Graphic Designer, educator & CEO Flowbite</p>
-                            <p class="text-base text-gray-500 dark:text-gray-400"><time pubdate datetime="{{$post->created_at->diffForHumans()}}" title="February 8th, 2022">{{$post->created_at}}</time></p>
+                            <a href="/posts?author={{$post->author->username}}" rel="author" class="text-xl font-bold text-gray-900 dark:text-white">{{$post->author->name}}</a>
+                            <a href="/posts?category={{$post->category->slug}}">
+                                <p class="text-base text-gray-500 dark:text-gray-400">{{$post->category->name}}</p>
+                            </a>
+                            <p class="text-base text-gray-500 dark:text-gray-400">{{$post->created_at->diffForHumans()}}</p>
                         </div>
                     </div>
                 </address>
