@@ -20,12 +20,9 @@ Route::get('/contact', function () {
     return view('contact', ['title' => 'Contact Me']);
 });
 route::get('/posts', function () {
-    dump(request('search'));
-    $posts = Post::latest();
     if(request('search')){
-        $posts->where('title', 'like', '%'. request('search'),'%');
     }
-    return view('posts', ['title' => 'Blog', 'posts'=>$posts->get()]);
+    return view('posts', ['title' => 'Blog', 'posts'=>Post::filter(request(['search','category']))->latest()->get()]);
 });
 
 Route::get('/postblog', function () {
