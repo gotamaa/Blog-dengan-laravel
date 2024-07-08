@@ -26,9 +26,9 @@ route::get('/posts', function () {
     return view('blog\posts', ['title' => 'Blog', 'posts'=>Post::filter(request(['search','category','author']))->latest()->get()]);
 })->name('posts');
 
-Route::get('/postarticle', function (Category $categories) {
-    return view('createpost' , ['title' => 'Upload Your blog']);
-});
+Route::get('/uploadpost', function (Category $categories) {
+    return view('blog\createpost' , ['title' => 'Upload Your blog']);
+})->name('uploadpost');
 route::get('/author/{user}', function (User $user) {
     // $posts = $user->posts->load(['author','cattegory']);
     return view('blog\posts', ['title' => Count($user->posts) . ' Article By ' .$user->name, 'posts'=>$user->posts]);
@@ -39,8 +39,8 @@ route::get('/posts/{post:slug}', function (Post $post){
 route::get('/categories/{category:slug}', function (Category $category) {
     return view('blog\posts', ['title' => 'Article in ' .$category->name, 'posts'=>$category->posts]);
 });
-route::get('/login' , [Controllers\LoginController::class, 'LoginForm'])->name('login')->middleware('auth');
-route::post('/login' , [Controllers\LoginController::class, 'authenticate']);
-
+route::get('/login' , [Controllers\LoginController::class, 'LoginForm'])->name('login')->middleware('guest');
+route::post('/login' , [Controllers\LoginController::class, 'authenticate'])->middleware('auth');
+route::post('logout', App\Http\controllers\LogoutController::class)->name('logout')->middleware('auth');
 
 
