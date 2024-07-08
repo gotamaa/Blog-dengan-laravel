@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\RedirectResponse;
 
-class MakePostController extends Controller
+
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,9 +25,8 @@ class MakePostController extends Controller
      */
     public function create()
     {
-
-        $post = Post::create();
-        return view('posts.create');
+        $categories= Category::all();
+        return view('createpost');
     }
 
     /**
@@ -38,12 +39,13 @@ class MakePostController extends Controller
             'authtor' => 'required|string|max:255',
             'body' => 'required|string',
         ]);
-        $post= new Post();
-        $post->title->$request['title'];
-        $post->author->$request['author'];
-        $post->body->$request['body'];
-        $post->save();
-        return redirect('/posts');
+        $post= Post::create([
+        'title'=>$request->title,
+        'author'=>$request->author,
+        'category'=>$request->category,
+        'body'=>$request->body,
+        ]);
+        return redirect()->route('posts');
     }
 
     /**

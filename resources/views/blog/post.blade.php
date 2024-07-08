@@ -10,8 +10,8 @@
     <x-layout>
         <x-slot:title>{{$title}}</x-slot:title>
         {{-- <x-searchbar></x-searchbar> --}}
-<main class="pt-8 pb-16 lg:pt-16 lg:pb-24 dark:bg-gray-900 antialiased">
-    <div class="flex justify-between px-4 mx-auto max-w-screen-xl ">
+        <main class="pt-8 pb-16 lg:pt-16 lg:pb-24 dark:bg-gray-900 antialiased">
+        <div class="flex justify-between px-4 mx-auto max-w-screen-xl ">
         <article class="mx-auto w-full max-w-6xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
             <header class="mb-4 lg:mb-6 not-format">
                 <a href="/posts" class="font-medium text-xs text-blue-600 hover:underline">&laquo;Back to All Post</a>
@@ -31,7 +31,7 @@
             </header>
             <p>{{$post->body}}</p>
         </article>
-    </div>
+        </div>
 </main>
 </x-layout>
 </body>

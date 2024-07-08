@@ -20,10 +20,10 @@
               <div class="hidden md:block">
                 <div class="ml-10 flex items-baseline space-x-4">
                     <x-nav-link href="/" :active="request()->Is('/')">Home</x-nav-link>
-                    <x-nav-link href="/posts" :active="request()->Is('posts')">Blog</x-nav-link>
-                    <x-nav-link href="/about" :active="request()->Is('about')">About</x-nav-link>
+                    <x-nav-link href="posts" :active="request()->Is('posts')">Blog</x-nav-link>
+                    <x-nav-link href="about" :active="request()->Is('about')">About</x-nav-link>
                     <x-nav-link href="/contact" :active="request()->Is('contact')">Contact</x-nav-link>
-                    <x-nav-link href="/postblog" :active="request()->Is('postblog')">Post Your Article</x-nav-link>
+                    <x-nav-link href="/postarticle" :active="request()->Is('postarticle')">Post Your Article</x-nav-link>
                 </div>
             </div>
             </div>
@@ -48,9 +48,14 @@
                     x-transition:leave-end="opacity-0 scale-95"
                     class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                     <!-- Active: "bg-gray-100", Not Active: "" -->
+                    @auth
                     <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
                     <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
+                    @else
+
+                    <a href="login" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign in</a>
+                    @endauth
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
                   </div>
                 </div>
               </div>
