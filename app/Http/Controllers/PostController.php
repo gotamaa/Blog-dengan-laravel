@@ -26,7 +26,7 @@ class PostController extends Controller
     public function create()
     {
         $categories= Category::all();
-        return view('blog.createpost', ['categories' => $categories, 'title' => 'Upload Post']);
+        return view('blog.createpost', ['categories' => $categories, 'title' => 'Upload Article ']);
     }
 
     /**
@@ -34,10 +34,10 @@ class PostController extends Controller
      */
     public function store(Request $request) : RedirectResponse
     {
-        $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'category'=> 'required|exists:categories,id',
-            'body' => 'required|string',
+        $request->validate([
+            'title' => 'required','string','max:255',
+            'category'=> 'required','exists:categories,category_id',
+            'body' => 'required','string','max:2500',
         ]);
         Post::create([
         'title'=>$request->title,

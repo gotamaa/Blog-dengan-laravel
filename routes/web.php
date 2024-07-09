@@ -31,7 +31,6 @@ route::get('/posts', function () {
 Route::get('/uploadpost',[PostController::class, 'create'] )->name('uploadpost')->middleware('auth');
 Route::post('/uploadpost', [PostController::class, 'store'])->name('post.store');
 
-
 route::get('/author/{user}', function (User $user) {
     // $posts = $user->posts->load(['author','cattegory']);
     return view('blog\posts', ['title' => Count($user->posts) . ' Article By ' . $user->name, 'posts' => $user->posts]);
@@ -46,7 +45,7 @@ route::get('/login', [UserController::class, 'LoginForm'])->name('login')->middl
 route::post('/login', [UserController::class, 'authenticate']);
 Route::post('/logout', [UserController::class, 'Logout'])->name('logout')->middleware('auth');
 route::get('/signup', [UserController::class, 'SignupForm'])->name('signup');
-route::post('/signup', [UserController::class, 'store'])->name('user.store');
+route::post('/signup', [UserController::class, 'store'])->name('signup.store');
 
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
