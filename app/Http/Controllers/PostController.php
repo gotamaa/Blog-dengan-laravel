@@ -7,7 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\RedirectResponse;
-
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -26,26 +26,26 @@ class PostController extends Controller
     public function create()
     {
         $categories= Category::all();
-        return view('createpost');
+        return view('blog.createpost', ['categories' => $categories, 'title' => 'Upload Post']);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request) : RedirectResponse
     {
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
-            'authtor' => 'required|string|max:255',
+            'category'=> 'required|exists:categories,id',
             'body' => 'required|string',
         ]);
-        $post= Post::create([
+        Post::create([
         'title'=>$request->title,
-        'author'=>$request->author,
-        'category'=>$request->category,
+        'author_id'=>Auth::user()->id,
+        'category_id'=>$request->category,
         'body'=>$request->body,
         ]);
-        return redirect()->route('posts');
+        return redirect()->route('posts')->with('success', 'Post created successfully.');
     }
 
     /**

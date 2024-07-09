@@ -6,12 +6,13 @@ use App\Http\Controllers\PostController;
 use App\Models\Category;
 use App\Models\User;
 use Faker\Extension\CountryExtension;
-use App\Http\Controllers;
+use App\Http\Controllers\UserController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
-Route::resource('post', PostController::class);
+
 
 Route::get('/', function () {
-    return view('home' , ['title' => 'Home Page']);
+    return view('home', ['title' => 'Home Page']);
 });
 
 Route::get('/about', function () {
@@ -21,26 +22,38 @@ Route::get('/contact', function () {
     return view('contact', ['title' => 'Contact Me']);
 })->name('contact');
 route::get('/posts', function () {
-    if(request('search')){
+    if (request('search')) {
     }
-    return view('blog\posts', ['title' => 'Blog', 'posts'=>Post::filter(request(['search','category','author']))->latest()->get()]);
+    return view('blog\posts', ['title' => 'Blog', 'posts' => Post::filter(request(['search', 'category', 'author']))->latest()->get()]);
 })->name('posts');
 
-Route::get('/uploadpost', function (Category $categories) {
-    return view('blog\createpost' , ['title' => 'Upload Your blog']);
-})->name('uploadpost');
+
+Route::get('/uploadpost',[PostController::class, 'create'] )->name('uploadpost')->middleware('auth');
+Route::post('/uploadpost', [PostController::class, 'store'])->name('post.store');
+
+
 route::get('/author/{user}', function (User $user) {
     // $posts = $user->posts->load(['author','cattegory']);
-    return view('blog\posts', ['title' => Count($user->posts) . ' Article By ' .$user->name, 'posts'=>$user->posts]);
+    return view('blog\posts', ['title' => Count($user->posts) . ' Article By ' . $user->name, 'posts' => $user->posts]);
 });
-route::get('/posts/{post:slug}', function (Post $post){
-    return view('blog\post', ['title' => 'Single Post', 'post'=>$post]);
+route::get('/posts/{post:slug}', function (Post $post) {
+    return view('blog\post', ['title' => 'Single Post', 'post' => $post]);
 });
 route::get('/categories/{category:slug}', function (Category $category) {
-    return view('blog\posts', ['title' => 'Article in ' .$category->name, 'posts'=>$category->posts]);
+    return view('blog\posts', ['title' => 'Article in ' . $category->name, 'posts' => $category->posts]);
 });
-route::get('/login' , [Controllers\LoginController::class, 'LoginForm'])->name('login')->middleware('guest');
-route::post('/login' , [Controllers\LoginController::class, 'authenticate'])->middleware('auth');
-route::post('logout', App\Http\controllers\LogoutController::class)->name('logout')->middleware('auth');
+route::get('/login', [UserController::class, 'LoginForm'])->name('login')->middleware('guest');
+route::post('/login', [UserController::class, 'authenticate']);
+Route::post('/logout', [UserController::class, 'Logout'])->name('logout')->middleware('auth');
+route::get('/signup', [UserController::class, 'SignupForm'])->name('signup');
+route::post('/signup', [UserController::class, 'store'])->name('user.store');
 
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
 
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/home');
+})->middleware(['auth', 'signed'])->name('verification.verify');

@@ -6,12 +6,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Auth\Events\Registered;
 
-class User extends Authenticatable
+// event(new Registered($user));
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -47,6 +49,6 @@ class User extends Authenticatable
     }
     public function posts(): HasMany
     {
-    return $this->hasMany(Post::class, 'author_id');
+        return $this->hasMany(Post::class, 'author_id');
     }
 }
