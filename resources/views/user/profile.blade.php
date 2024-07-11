@@ -66,16 +66,15 @@
                             </div>
                         </div>
 
-                        <form action="profile" method="post">
+                        <form action="/profile" method="post" enctype="multipart/form-data">
                             @csrf
                             <div id="info-popup" tabindex="-1"
                                 class="hidden fixed inset-0 z-50 bg-black bg-opacity-50">
                                 <div class="flex items-center justify-center min-h-screen">
                                     <div class="relative p-4 w-full max-w-lg h-full md:h-auto">
                                         <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 md:p-8">
-
                                             <div class="flex items-center justify-center w-full">
-                                                <label for="dropzone-file"
+                                                <label for="image"
                                                     class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                                                     <div class="flex flex-col items-center justify-center pt-5 pb-6">
                                                         <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
@@ -91,12 +90,10 @@
                                                         <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG,
                                                             JPG or GIF (MAX. 800x400px)</p>
                                                     </div>
-                                                    <input id="dropzone-file" type="file" name="image"
-                                                        class="hidden" />
+                                                    <input type="file" name="image" id="image" class="hidden">
                                                 </label>
                                             </div>
-                                            <div
-                                                class="justify-between items-center pt-0 space-y-4 sm:flex sm:space-y-0">
+                                            <div class="justify-between items-center pt-0 space-y-4 sm:flex sm:space-y-0">
                                                 <div class="items-center space-y-4 sm:space-x-4 sm:flex sm:space-y-0">
                                                     <button id="close-modal" type="button"
                                                         class="py-2 px-4 w-full text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 sm:w-auto hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
@@ -108,7 +105,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                        </form>
 
                         <script>
                             document.getElementById('open-popup').addEventListener('click', function() {
@@ -126,7 +123,6 @@
                                 popup.classList.add('hidden');
                             });
                         </script>
-</form>
                         <div class="items-center mt-8 sm:mt-14 text-[#202142]">
 
                             <div
