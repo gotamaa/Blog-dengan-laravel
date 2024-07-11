@@ -52,8 +52,6 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 
-route::get('/profile', [ProfileController::class, 'create'])->name('profile');
-
-route::post('/profile', [ProfileController::class, 'update_profile'])->name('profile.update');
-route::post('/profile', [ProfileController::class, 'delete_profile'])->name('profile.delete');
-
+Route::get('/profile', [ProfileController::class, 'create'])->name('profile');
+Route::post('/profile/update-picture', [ProfileController::class, 'update_picture'])->name('picture.update');
+Route::post('/profile/delete-picture', [ProfileController::class, 'delete_picture'])->name('picture.delete');

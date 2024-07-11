@@ -59,14 +59,17 @@
                                     class="py-3.5 px-7 text-base font-medium text-indigo-100 focus:outline-none bg-[#202142] rounded-lg border border-indigo-200 hover:bg-indigo-900 focus:z-10 focus:ring-4 focus:ring-indigo-200 ">
                                     Change picture
                                 </button>
-                                <button type="button"
-                                    class="py-3.5 px-7 text-base font-medium text-indigo-900 focus:outline-none bg-white rounded-lg border border-indigo-200 hover:bg-indigo-100 hover:text-[#202142] focus:z-10 focus:ring-4 focus:ring-indigo-200 ">
-                                    Delete picture
-                                </button>
+                                <form action="{{route('picture.delete')}}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <button type="submit"
+                                        class="py-3.5 px-7 text-base font-medium text-indigo-900 focus:outline-none bg-white rounded-lg border border-indigo-200 hover:bg-indigo-100 hover:text-[#202142] focus:z-10 focus:ring-4 focus:ring-indigo-200 ">
+                                        Delete picture
+                                    </button>
+                                </form>
                             </div>
                         </div>
 
-                        <form action="/profile" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('picture.update') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div id="info-popup" tabindex="-1"
                                 class="hidden fixed inset-0 z-50 bg-black bg-opacity-50">
@@ -77,6 +80,9 @@
                                                 <label for="image"
                                                     class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                                                     <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                                        {{-- <div class="flex items-center justify-center mt-4">
+                                                            <img id="image-preview" class="hidden object-cover w-40 h-40 rounded-lg">
+                                                        </div> --}}
                                                         <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
                                                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                                             fill="none" viewBox="0 0 20 16">
@@ -90,9 +96,11 @@
                                                         <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG,
                                                             JPG or GIF (MAX. 800x400px)</p>
                                                     </div>
-                                                    <input type="file" name="image" id="image" class="hidden">
+                                                    <input type="file" name="image" id="image" class="hidden" accept="image/*">
                                                 </label>
+
                                             </div>
+
                                             <div class="justify-between items-center pt-0 space-y-4 sm:flex sm:space-y-0">
                                                 <div class="items-center space-y-4 sm:space-x-4 sm:flex sm:space-y-0">
                                                     <button id="close-modal" type="button"
@@ -122,9 +130,19 @@
                                 var popup = document.getElementById('info-popup');
                                 popup.classList.add('hidden');
                             });
-                        </script>
-                        <div class="items-center mt-8 sm:mt-14 text-[#202142]">
 
+                            document.getElementById('image').addEventListener('change', function(event) {
+                                var reader = new FileReader();
+                                reader.onload = function() {
+                                    var output = document.getElementById('image-preview');
+                                    output.src = reader.result;
+                                    output.classList.remove('hidden');
+                                };
+                                reader.readAsDataURL(event.target.files[0]);
+                            });
+                        </script>
+
+                        <div class="items-center mt-8 sm:mt-14 text-[#202142]">
                             <div
                                 class="flex flex-col items-center w-full mb-2 space-x-0 space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0 sm:mb-6">
                                 <div class="w-full">

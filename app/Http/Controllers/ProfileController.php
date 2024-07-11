@@ -10,7 +10,7 @@ class ProfileController extends Controller
     public function create(){
         return view('user\profile');
     }
-    public function ganti_profile(Request $request){
+    public function update_picture(Request $request){
         $request->validate([
 
             'image' => 'required','image','mimes:jpeg,png,jpg,gif','max:2048',
@@ -27,10 +27,19 @@ class ProfileController extends Controller
             user::where('id', Auth::user()->id)
                 ->update(['image' => $user->image]);
             return back()->with('success', 'Gambar berhasil diunggah.');
-        } else {
-            return back()->with('error', 'Gambar tidak ditemukan.');
-
-
+        }
+        else
+        {
+        return back()->with('error', 'Gambar tidak ditemukan.');
     }
+    }
+    public function delete_picture(){
+        $imageName='DefaultProfile.png';
+        $user = User::find(auth()->user()->id);
+            $user->image = "/images/". $imageName; // Sesuaikan dengan lokasi penyimpanan gambar Anda
+
+            user::where('id', Auth::user()->id)
+                ->update(['image' => $user->image]);
+            return to_route('profile')->with('success', 'Gambar berhasil dihapus.');
     }
 }
