@@ -10,7 +10,7 @@ class ProfileController extends Controller
     public function create(){
         return view('user\profile');
     }
-    public function update(Request $request){
+    public function ganti_profile(Request $request){
         $request->validate([
 
             'image' => 'required','image','mimes:jpeg,png,jpg,gif','max:2048',

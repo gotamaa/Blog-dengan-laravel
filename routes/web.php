@@ -54,5 +54,6 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 
 route::get('/profile', [ProfileController::class, 'create'])->name('profile');
 
-route::post('/profile', [ProfileController::class, 'update']);
+route::post('/profile', [ProfileController::class, 'update_profile'])->name('profile.update');
+route::post('/profile', [ProfileController::class, 'delete_profile'])->name('profile.delete');
 
