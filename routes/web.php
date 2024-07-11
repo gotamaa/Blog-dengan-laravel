@@ -3,6 +3,7 @@
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
 use App\Models\Category;
 use App\Models\User;
 use Faker\Extension\CountryExtension;
@@ -14,17 +15,10 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 Route::get('/', function () {
     return view('home', ['title' => 'Home Page']);
 });
-
-Route::get('/about', function () {
-    return view('about', ['title' => 'About Me']);
-})->name('about');
-Route::get('/contact', function () {
-    return view('contact', ['title' => 'Contact Me']);
-})->name('contact');
 route::get('/posts', function () {
     if (request('search')) {
     }
-    return view('blog\posts', ['title' => 'Blog', 'posts' => Post::filter(request(['search', 'category', 'author']))->latest()->get()]);
+    return view('blog\posts', ['title' => 'Blog', 'posts' => Post::filter(request(['search', 'category', 'author']))->latest()->paginate(12)->withquerystring()]);
 })->name('posts');
 
 
@@ -56,3 +50,9 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 
     return redirect('/home');
 })->middleware(['auth', 'signed'])->name('verification.verify');
+
+
+route::get('/profile', [ProfileController::class, 'create'])->name('profile');
+
+route::post('/profile', [ProfileController::class, 'update']);
+

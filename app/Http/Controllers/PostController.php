@@ -35,9 +35,9 @@ class PostController extends Controller
     public function store(Request $request) : RedirectResponse
     {
         $request->validate([
-            'title' => 'required','string','max:255',
+            'title' => 'required','string','max:50',
             'category'=> 'required','exists:categories,category_id',
-            'body' => 'required','string','max:2500',
+            'body' => 'required','string','max:250',
         ]);
         Post::create([
         'title'=>$request->title,
