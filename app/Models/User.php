@@ -10,8 +10,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 
 // event(new Registered($user));
-class User extends Authenticatable implements MustVerifyEmail
-{
+// class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable{
     use HasFactory, Notifiable;
     /**
      * The attributes that are mass assignable.

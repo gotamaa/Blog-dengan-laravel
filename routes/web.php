@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\User;
 use Faker\Extension\CountryExtension;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\CountViews;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 
@@ -21,6 +22,9 @@ route::get('/posts', function () {
     }
     return view('blog\posts', ['title' => 'Blog', 'posts' => Post::filter(request(['search', 'category', 'author']))->latest()->paginate(12)->withquerystring()]);
 })->name('posts');
+route::get('/posts/{post:slug}', function (Post $post) {
+    return view('blog\post', ['title' => 'Single Post', 'post' => $post]);
+})->middleware(CountViews::class)->name('posts.single');
 
 
 Route::get('/uploadpost',[PostController::class, 'create'] )->name('uploadpost')->middleware('auth', 'verified');
@@ -30,9 +34,7 @@ route::get('/author/{user}', function (User $user) {
     // $posts = $user->posts->load(['author','cattegory']);
     return view('blog\posts', ['title' => Count($user->posts) . ' Article By ' . $user->name, 'posts' => $user->posts]);
 });
-route::get('/posts/{post:slug}', function (Post $post) {
-    return view('blog\post', ['title' => 'Single Post', 'post' => $post]);
-});
+
 route::get('/categories/{category:slug}', function (Category $category) {
     return view('blog\posts', ['title' => 'Article in ' . $category->name, 'posts' => $category->posts]);
 });
@@ -43,11 +45,7 @@ route::get('/signup', [UserController::class, 'SignupForm'])->name('signup');
 route::post('/signup', [UserController::class, 'store'])->name('signup.store');
 
 
-Auth::routes(['verify' => true]);
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
-
+// Auth::routes(['verify' => true]);
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
 
