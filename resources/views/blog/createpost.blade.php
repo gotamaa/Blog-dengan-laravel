@@ -52,9 +52,10 @@
                 removeItemButton: true,
                 searchEnabled: true,
                 addItems: true,
-                duplicateItemsAllowed: false,
-                itemSelectText: 'Select',
-                addItem : (value) => {
+                duplicateItemsAllowed:
+
+
+    : (value) => {
                     return `Press Enter to add <b>"${value}"</b>`;
                 }
             });

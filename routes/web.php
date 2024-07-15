@@ -2,6 +2,7 @@
 
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Category;
@@ -22,7 +23,7 @@ route::get('/posts', function () {
 })->name('posts');
 
 
-Route::get('/uploadpost',[PostController::class, 'create'] )->name('uploadpost')->middleware('auth');
+Route::get('/uploadpost',[PostController::class, 'create'] )->name('uploadpost')->middleware('auth', 'verified');
 Route::post('/uploadpost', [PostController::class, 'store'])->name('post.store');
 
 route::get('/author/{user}', function (User $user) {
@@ -41,6 +42,8 @@ Route::post('/logout', [UserController::class, 'Logout'])->name('logout')->middl
 route::get('/signup', [UserController::class, 'SignupForm'])->name('signup');
 route::post('/signup', [UserController::class, 'store'])->name('signup.store');
 
+
+Auth::routes(['verify' => true]);
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');

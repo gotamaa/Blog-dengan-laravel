@@ -26,6 +26,11 @@
                             <input type="email" name="email" id="email" value="{{old('email')}}"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="name@company.com" autocomplete="off" required="">
+                            @error('email')
+                                <div>
+                                    {{$message}}
+                                </div>
+                            @enderror
                         </div>
                         <div>
                             <label for="name"
@@ -40,13 +45,21 @@
                                 <input type="text" name="username" id="username" value="{{old('username')}}"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Username" required="" autocomplete="off">
+                                @error('username')
+                                <div>
+                                    {{$message}}
+                                </div>
+                            @enderror
                             </div>
                             <div>
                                 <label for="password"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                                <input type="password" name="password" id="password" placeholder="••••••••" value="{{old('password')}}"
+                                <input type="password" name="password" id="password" value="{{old('password')}}"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                required="" autocomplete="off">
+                                placeholder="••••••••" required="" autocomplete="off">
+                                @error('password')
+                                    <div>{{$message}}</div>
+                                @enderror
                             </div>
                             <div>
                                 <label for="password_confirmation"
@@ -56,6 +69,11 @@
                                 placeholder="••••••••"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 required="" autocomplete="off">
+                                @error('password_confirmation')
+                                <div>
+                                    {{$message}}
+                                </div>
+                            @enderror
                             </div>
                             <div class="flex items-start">
                                 <div class="flex items-center h-5">
