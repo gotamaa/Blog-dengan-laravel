@@ -8,11 +8,21 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Auth\Events\Registered;
 
-// event(new Registered($user));
 // class User extends Authenticatable implements MustVerifyEmail
-class User extends Authenticatable{
+class User extends Authenticatable implements MustVerifyEmail
+{
+
+
     use HasFactory, Notifiable;
+
+    protected static function booted()
+    {
+        static::created(function ($user) {
+            event(new Registered($user));
+        });
+    }
     /**
      * The attributes that are mass assignable.
      *
@@ -23,6 +33,8 @@ class User extends Authenticatable{
         'email',
         'password',
         'username',
+        'image',
+        'remember_token',
     ];
 
     /**

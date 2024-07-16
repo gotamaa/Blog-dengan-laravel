@@ -13,7 +13,7 @@
         <x-slot:title>{{ $title }}</x-slot:title>
         <x-searchbar></x-searchbar>
         <div class="py-4 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-0">
-            <div class="grid gap-8 lg:grid-cols-4">
+            <div class="grid gap-8 lg:grid-cols-2">
                 @forelse ($posts as $post)
                     <article
                         class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">

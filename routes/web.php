@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\SignupController;
+use App\Controllers\Auth\AuthController;
 use App\Models\Category;
 use App\Models\User;
 use Faker\Extension\CountryExtension;
@@ -14,20 +17,19 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 
 
-Route::get('/', function () {
+
+Route::get('/home', function () {
     return view('home', ['title' => 'Home Page']);
 });
 route::get('/posts', function () {
     if (request('search')) {
     }
-    return view('blog\posts', ['title' => 'Blog', 'posts' => Post::filter(request(['search', 'category', 'author']))->latest()->paginate(12)->withquerystring()]);
+    return view('blog\posts', ['title' => 'Blog', 'posts' => Post::filter(request(['search', 'category', 'author']))->latest()->paginate(6)->withquerystring()]);
 })->name('posts');
-route::get('/posts/{post:slug}', function (Post $post) {
-    return view('blog\post', ['title' => 'Single Post', 'post' => $post]);
-})->middleware(CountViews::class)->name('posts.single');
-
-
-Route::get('/uploadpost',[PostController::class, 'create'] )->name('uploadpost')->middleware('auth', 'verified');
+Route::middleware([CountViews::class])->group(function () {
+    Route::get('/posts/{post:slug}', [PostController::class, 'show'])->name('posts.show');
+});
+Route::get('/uploadpost', [PostController::class, 'create'])->name('uploadpost')->middleware('auth', 'verified');
 Route::post('/uploadpost', [PostController::class, 'store'])->name('post.store');
 
 route::get('/author/{user}', function (User $user) {
@@ -38,19 +40,25 @@ route::get('/author/{user}', function (User $user) {
 route::get('/categories/{category:slug}', function (Category $category) {
     return view('blog\posts', ['title' => 'Article in ' . $category->name, 'posts' => $category->posts]);
 });
-route::get('/login', [UserController::class, 'LoginForm'])->name('login')->middleware('guest');
-route::post('/login', [UserController::class, 'authenticate']);
-Route::post('/logout', [UserController::class, 'Logout'])->name('logout')->middleware('auth');
-route::get('/signup', [UserController::class, 'SignupForm'])->name('signup');
-route::post('/signup', [UserController::class, 'store'])->name('signup.store');
+route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/logout', [LoginController::class, 'Logout'])->name('logout')->middleware('auth');
+route::get('/signup', [SignupController::class, 'index'])->name('signup');
+route::post('/signup', [SignupController::class, 'store'])->name('signup.store');
 
+Route::get('/email/verify', function () {
+    return view('auth\notice');
+})->middleware('auth')->name('verification.notice');
 
-// Auth::routes(['verify' => true]);
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
-
     return redirect('/home');
 })->middleware(['auth', 'signed'])->name('verification.verify');
+// Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+//     $request->fulfill();
+
+//     return redirect('/home');
+// })->middleware(['auth', 'signed'])->name('verification.verify');
 
 
 Route::get('/profile', [ProfileController::class, 'create'])->name('profile');

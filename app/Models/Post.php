@@ -12,7 +12,7 @@ class Post extends Model
 {
     use HasFactory;
     protected $table = 'posts';
-    protected $fillable = ['title', 'author_id', 'body','slug','category_id'];
+    protected $fillable = ['title', 'author_id', 'body','slug','category_id','views'];
     public function setTitleAttribute($value)
     {
         $this->attributes['title'] = $value;

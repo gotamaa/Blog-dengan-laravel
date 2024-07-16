@@ -24,7 +24,7 @@ return new class extends Migration
                 indexName: 'posts_category_id'
             );
             $table->string('body');
-            $table->unsignedBigInteger('views');
+            $table->integer('views');
             $table->timestamps();
         });
     }

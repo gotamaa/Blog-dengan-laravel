@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Support\Facades\Log; // Tambahkan ini untuk debugging
 
 class CountViews
 {
@@ -15,11 +16,20 @@ class CountViews
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->route('posts.single')) {
-            $post=Post::find($request->route('posts.single')->id);
-            Post::where('id', $post->id)
-            ->increment('views');
+        $post = $request->route('post');
+
+        if ($post instanceof Post) {
+            $postId = $post->id;
+            $sessionKey = "viewed_posts_{$postId}";
+
+            if (!$request->session()->has($sessionKey)) {
+                // Tambahkan 1 view pada post hanya jika belum dilihat oleh pengguna di sesi ini
+                $post->increment('views');
+                // Tandai post ini sebagai sudah dilihat di sesi ini
+                $request->session()->put($sessionKey, true);
+            }
         }
+
         return $next($request);
     }
 }
