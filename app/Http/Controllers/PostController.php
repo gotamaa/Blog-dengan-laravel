@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-
+use app\Models\Comment;
 class PostController extends Controller
 {
     /**
@@ -47,13 +47,12 @@ class PostController extends Controller
         ]);
         return redirect()->route('posts')->with('success', 'Post created successfully.');
     }
-
     /**
      * Display the specified resource.
      */
     public function show(Post $post)
     {
-        return view('post.show',compact('post'));
+        return view('blog\post',['title' => "Single Post"],compact('post'));
     }
 
     /**

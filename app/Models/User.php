@@ -9,13 +9,17 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Events\Registered;
+use Usamamuneerchaudhary\Commentify\Traits\HasUserAvatar;
+
+
 
 // class User extends Authenticatable implements MustVerifyEmail
 class User extends Authenticatable implements MustVerifyEmail
 {
 
 
-    use HasFactory, Notifiable;
+
+    use HasFactory, Notifiable,HasUserAvatar;
 
     protected static function booted()
     {
@@ -63,4 +67,5 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Post::class, 'author_id');
     }
+
 }

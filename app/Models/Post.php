@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use App\Http\Controllers\MakePostController;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Usamamuneerchaudhary\Commentify\Traits\Commentable;
 class Post extends Model
 {
-    use HasFactory;
+    use HasFactory, Commentable;
     protected $table = 'posts';
     protected $fillable = ['title', 'author_id', 'body','slug','category_id','views'];
     public function setTitleAttribute($value)
@@ -44,6 +45,8 @@ class Post extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+
 
     public function scopeFilter(Builder $query, array $filters) : void
     {
