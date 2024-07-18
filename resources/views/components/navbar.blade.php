@@ -38,7 +38,7 @@
                                 <span class="absolute -inset-1.5"></span>
                                 <span class="sr-only">Open user menu</span>
                                 @auth
-                                    <img class="h-8 w-8" src="{{ Auth::user()->image }}" alt="Your Company">
+                                    <img class="h-8 w-8" src="{{ Auth::user()->avatar }}" alt="Your Company">
                                 @else
                                     <img class="h-8 w-8 rounded-full"
                                         src="/images/DefaultProfile.png"
@@ -63,7 +63,7 @@
                                 tabindex="-1">
                                 <!-- Active: "bg-gray-100", Not Active: "" -->
                                 @auth
-                                    <a href="profile" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                                    <a href="/profile" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
                                         tabindex="0" id="user-menu-item-1">Your Profile</a>
                                     <form action="{{ route('logout') }}" method="POST">
                                         @csrf

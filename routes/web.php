@@ -67,8 +67,13 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 
 
 //profile
-Route::get('/profile', [ProfileController::class, 'create'])->name('profile');
+Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+Route::post('/profile/profile-update', [ProfileController::class, 'bio'])->name('profile.update');
 Route::post('/profile/update-picture', [ProfileController::class, 'update_picture'])->name('picture.update');
 Route::post('/profile/delete-picture', [ProfileController::class, 'delete_picture'])->name('picture.delete');
 
-//comment
+//post managment
+route::get('/manageposts', [PostController::class, 'manage'])->name('manage-post')->middleware('auth', 'verified');
+route::get('/manage-post/{post:slug}', [PostController::class, 'edit'])->name('manage-post.edit')->middleware('auth', 'verified');
+route::post('/manage-post/{post:slug}', [PostController::class, 'update'])->name('manageposts.update')->middleware('auth', 'verified');
+Route::delete('/manageposts/{post}', [PostController::class, 'destroy'])->name('manageposts.destroy');

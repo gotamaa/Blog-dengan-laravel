@@ -14,6 +14,11 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function manage()
+    {
+        $posts = Post::where('author_id', Auth::user()->id)->get();
+        return view('blog\managment', compact('posts'));
+    }
     public function index()
     {
         $posts = Post::all();
@@ -76,6 +81,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+    $post->delete();
+    return to_route('manage-post')->with('success', 'Post deleted successfully.');
     }
 }

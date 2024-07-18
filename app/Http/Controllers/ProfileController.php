@@ -7,8 +7,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class ProfileController extends Controller
 {
-    public function create(){
+    public function show(){
         return view('user\profile');
+    }
+    public function bio(Request $request){
+        $request->validate([
+            'bio' => 'required',
+        ]);
+        user::where('id', Auth::user()->id)
+            ->update(['bio' => $request->bio]);
+        return to_route('profile');
     }
     public function update_picture(Request $request){
         $request->validate([
@@ -22,10 +30,10 @@ class ProfileController extends Controller
 
             // Simpan path gambar ke database
             $user = User::find(auth()->user()->id);
-            $user->image = "/images/". $imageName; // Sesuaikan dengan lokasi penyimpanan gambar Anda
+            $user->avatar = "/images/". $imageName; // Sesuaikan dengan lokasi penyimpanan gambar Anda
 
             user::where('id', Auth::user()->id)
-                ->update(['image' => $user->image]);
+                ->update(['avatar' => $user->avatar]);
             return back()->with('success', 'Gambar berhasil diunggah.');
         }
         else
@@ -36,10 +44,10 @@ class ProfileController extends Controller
     public function delete_picture(){
         $imageName='DefaultProfile.png';
         $user = User::find(auth()->user()->id);
-            $user->image = "/images/". $imageName; // Sesuaikan dengan lokasi penyimpanan gambar Anda
+            $user->avatar = "/images/". $imageName; // Sesuaikan dengan lokasi penyimpanan gambar Anda
 
             user::where('id', Auth::user()->id)
-                ->update(['avatar' => $user->image]);
+                ->update(['avatar' => $user->avatar]);
             return to_route('profile')->with('success', 'Gambar berhasil dihapus.');
     }
 }
