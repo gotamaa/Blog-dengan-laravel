@@ -37,7 +37,7 @@
                         <div class="flex justify-between items-center">
                             <div class="flex items-center space-x-4">
                                 <img class="w-7 h-7 rounded-full"
-                                    src="{{ $post->author->image }}"
+                                    src="{{ $post->author->avatar }}"
                                     alt="Jese Leos avatar" />
                                 <a href="/posts?author={{ $post->author->username }}">
                                     <span class="font-medium dark:text-white">

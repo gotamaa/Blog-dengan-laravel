@@ -39,7 +39,7 @@ class ProfileController extends Controller
             $user->image = "/images/". $imageName; // Sesuaikan dengan lokasi penyimpanan gambar Anda
 
             user::where('id', Auth::user()->id)
-                ->update(['image' => $user->image]);
+                ->update(['avatar' => $user->image]);
             return to_route('profile')->with('success', 'Gambar berhasil dihapus.');
     }
 }

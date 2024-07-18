@@ -26,7 +26,7 @@ class SignupController extends Controller
             'username' => $validatedData['username'],
             'email' => $validatedData['email'],
             'password' => Hash::make($request->password),
-            'image' => '/images/DefaultProfile.png',
+            'avatar' => '/images/DefaultProfile.png',
             'remember_token' =>Str::random(10),
         ]);
         return to_route('verification.notice');

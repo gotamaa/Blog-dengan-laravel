@@ -23,7 +23,7 @@
                                 All Post</a>
                             <address class="flex items-center my-6 not-italic">
                                 <div class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
-                                    <img class="mr-4 w-16 h-16 rounded-full" src="{{ $post->author->image }}"
+                                    <img class="mr-4 w-16 h-16 rounded-full" src="{{ $post->author->avatar }}"
                                         alt="Jese Leos">
                                     <div>
                                         <a href="/posts?author={{ $post->author->username }}" rel="author"
