@@ -50,4 +50,9 @@ class ProfileController extends Controller
                 ->update(['avatar' => $user->avatar]);
             return to_route('profile')->with('success', 'Gambar berhasil dihapus.');
     }
+
+    public function publicprofile($username){
+        $user = User::where('username', $username)->first();
+        return view('user\publicprofile', compact('user'));
+    }
 }

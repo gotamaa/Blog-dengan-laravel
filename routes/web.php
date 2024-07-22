@@ -36,9 +36,9 @@ Route::middleware([CountViews::class])->group(function () {
     route::get('/posts/{post:slug}', [PostController::class, 'show'])->name('posts.show');
 });
 
-route::get('/author/{user}', function (User $user) {
+route::get('/author', function (User $user) {
     // $posts = $user->posts->load(['author','cattegory']);
-    return view('blog\posts', ['title' => Count($user->posts) . ' Article By ' . $user->name, 'posts' => $user->posts]);
+    return view('blog\postsby', ['title' => Count($user->posts) . ' Article By ' . $user->name, 'posts' => $user->posts]);
 });
 route::get('/categories/{category:slug}', function (Category $category) {
     return view('blog\posts', ['title' => 'Article in ' . $category->name, 'posts' => $category->posts]);
@@ -71,9 +71,11 @@ Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
 Route::post('/profile/profile-update', [ProfileController::class, 'bio'])->name('profile.update');
 Route::post('/profile/update-picture', [ProfileController::class, 'update_picture'])->name('picture.update');
 Route::post('/profile/delete-picture', [ProfileController::class, 'delete_picture'])->name('picture.delete');
+// route::get('/profile/{user:username}', [ProfileController::class, 'publicprofile'])->name('profile.public');
 
 //post managment
 route::get('/manageposts', [PostController::class, 'manage'])->name('manage-post')->middleware('auth', 'verified');
 route::get('/manage-post/{post:slug}', [PostController::class, 'edit'])->name('manage-post.edit')->middleware('auth', 'verified');
-route::post('/manage-post/{post:slug}', [PostController::class, 'update'])->name('manageposts.update')->middleware('auth', 'verified');
+route::get('/managepost/edit/{post}', [PostController::class, 'editform'])->name('manageposts.update')->middleware('auth', 'verified');
+route::patch('/managepost/edit/{post}', [PostController::class, 'update'])->name('manageposts.update')->middleware('auth', 'verified');
 Route::delete('/manageposts/{post}', [PostController::class, 'destroy'])->name('manageposts.destroy');

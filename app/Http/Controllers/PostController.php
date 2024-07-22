@@ -9,6 +9,9 @@ use Illuminate\Routing\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use app\Models\Comment;
+use Illuminate\Contracts\Support\ValidatedData;
+use Illuminate\View\ViewServiceProvider;
+
 class PostController extends Controller
 {
     /**
@@ -49,6 +52,7 @@ class PostController extends Controller
         'author_id'=>Auth::user()->id,
         'category_id'=>$request->category,
         'body'=>$request->body,
+        'views'=>0,
         ]);
         return redirect()->route('posts')->with('success', 'Post created successfully.');
     }
@@ -73,7 +77,24 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $request->validate([
+            'title' => 'required','string','max:50',
+            'category'=> 'required','exists:categories,category_id',
+            'body' => 'required','string','max:250',
+        ]);
+        $post->update([
+        'title'=>$request->title,
+        'category_id'=>$request->category,
+        'body'=>$request->body,
+        ]);
+        return to_route('manage-post')->with('success', 'Post updated successfully.');
+    }
+
+    public function editform(Request $request, Post $post)
+    {
+
+        $categories= Category::all();
+        return view('blog.editpost', ['categories' => $categories],['post' => $post]);
     }
 
     /**
