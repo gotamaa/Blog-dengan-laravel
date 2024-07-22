@@ -32,7 +32,7 @@
         class="relative p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700" style="margin-top: 11px; margin-bottom: 11px;">
         <div x-data="{ isOpen: false }" class="menu-button">
             <button @click="isOpen = !isOpen"
-            class="relative flex items-center rounded-full bg-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+            class="relative flex items-center rounded-full bg-zinc-50 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
             id="user-menu-button" aria-expanded="false" aria-haspopup="true">
             ☰
             <span class="sr-only">Open user menu</span>

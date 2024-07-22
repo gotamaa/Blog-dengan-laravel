@@ -36,6 +36,7 @@
                 @forelse ($posts as $post)
                     <article
                         class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 post-container">
+                        @can('read post')
                         <div x-data="{ isOpen: false }" class="menu-button">
                             <button @click="isOpen = !isOpen"
                                 class="relative flex items-center rounded-full bg-zinc-50 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -68,6 +69,7 @@
                                 @endcan
                             </div>
                         </div>
+                        @endcan
                         <div class="flex justify-between items-center mb-5 text-gray-500">
                             <a href="/posts?category={{ $post->category->slug }}">
                                 <span

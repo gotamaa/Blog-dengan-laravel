@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use app\Models\Comment;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\View\ViewServiceProvider;
 
@@ -59,10 +60,17 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show(Request $request, Post $post)
     {
-        return view('blog\post',['title' => "Single Post"],compact('post'));
-    }
+            if ($this->authorize('read posts', $post)) {
+
+                return view('blog\post',['title' => "Single Post"],compact('post'));
+            }
+            else{
+                return view('login');
+            }
+
+        }
 
     /**
      * Show the form for editing the specified resource.

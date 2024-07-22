@@ -2,17 +2,12 @@
 
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SignupController;
-use App\Controllers\Auth\AuthController;
-use App\Http\Controllers\CommentController;
 use App\Models\Category;
 use App\Models\User;
-use Faker\Extension\CountryExtension;
-use App\Http\Controllers\UserController;
 use App\Http\Middleware\CountViews;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
@@ -76,6 +71,6 @@ Route::post('/profile/delete-picture', [ProfileController::class, 'delete_pictur
 //post managment
 route::get('/manageposts', [PostController::class, 'manage'])->name('manage-post')->middleware('auth', 'verified');
 route::get('/manage-post/{post:slug}', [PostController::class, 'edit'])->name('manage-post.edit')->middleware('auth', 'verified');
-route::get('/managepost/edit/{post}', [PostController::class, 'editform'])->name('manageposts.update')->middleware('auth', 'verified');
+route::get('/managepost/edit/{post}', [PostController::class, 'editform'])->middleware('auth', 'verified');
 route::patch('/managepost/edit/{post}', [PostController::class, 'update'])->name('manageposts.update')->middleware('auth', 'verified');
-Route::delete('/manageposts/{post}', [PostController::class, 'destroy'])->name('manageposts.destroy');
+Route::delete('/manageposts/{post}', [PostController::class, 'destroy'])->name('manageposts.destroy')->middleware('auth', 'verified');
