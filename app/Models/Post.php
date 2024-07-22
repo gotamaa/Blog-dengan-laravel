@@ -4,12 +4,9 @@ namespace App\Models;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Http\Controllers\MakePostController;
-use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\Gate as FacadesGate;
+
 use Usamamuneerchaudhary\Commentify\Traits\Commentable;
 class Post extends Model
 {
@@ -47,9 +44,6 @@ class Post extends Model
     {
         return $this->belongsTo(Category::class);
     }
-
-
-
     public function scopeFilter(Builder $query, array $filters) : void
     {
         $query->when($filters['search'] ?? false,

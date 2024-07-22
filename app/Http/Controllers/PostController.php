@@ -8,10 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use app\Models\Comment;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Contracts\Support\ValidatedData;
-use Illuminate\View\ViewServiceProvider;
+
 
 class PostController extends Controller
 {
@@ -62,12 +60,11 @@ class PostController extends Controller
      */
     public function show(Request $request, Post $post)
     {
-            if ($this->authorize('read posts', $post)) {
-
+            if (Gate::allows('read posts')) {
                 return view('blog\post',['title' => "Single Post"],compact('post'));
             }
             else{
-                return view('login');
+                return to_route('login');
             }
 
         }
