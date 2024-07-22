@@ -5,7 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>Document</title>
+    <style>
+        .menu-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        .menu-items {
+            right: 0;
+            top: 100%;
+        }
+
+        .post-container {
+            position: relative;
+        }
+    </style>
 </head>
 
 <body>
@@ -16,7 +35,39 @@
             <div class="grid gap-8 lg:grid-cols-2">
                 @forelse ($posts as $post)
                     <article
-                        class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                        class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 post-container">
+                        <div x-data="{ isOpen: false }" class="menu-button">
+                            <button @click="isOpen = !isOpen"
+                                class="relative flex items-center rounded-full bg-zinc-50 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                                id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                                ☰
+                                <span class="sr-only">Open user menu</span>
+                            </button>
+
+                            <div x-show="isOpen" @click.away="isOpen = false"
+                                x-transition:enter="transition ease-out duration-100 transform"
+                                x-transition:enter-start="opacity-0 scale-95"
+                                x-transition:enter-end="opacity-100 scale-100"
+                                x-transition:leave="transition ease-in duration-75 transform"
+                                x-transition:leave-start="opacity-100 scale-100"
+                                x-transition:leave-end="opacity-0 scale-95"
+                                class="absolute z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none menu-items"
+                                role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
+                                tabindex="-1">
+                                <!-- Menu items -->
+                                <a href="" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                                    tabindex="0">Report!</a>
+                                @can('delete posts')
+                                    <form method="POST" action="{{ route('manageposts.destroy', $post->id) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="block w-full text-left px-4 py-2 text-sm text-gray-700" role="menuitem"
+                                            tabindex="1">Delete</button>
+                                    </form>
+                                @endcan
+                            </div>
+                        </div>
                         <div class="flex justify-between items-center mb-5 text-gray-500">
                             <a href="/posts?category={{ $post->category->slug }}">
                                 <span
@@ -36,8 +87,7 @@
                         <div class="flex justify-between items-center">
                             <div class="flex items-center space-x-4">
                                 <a href="/author/{user}">
-                                    <img class="w-7 h-7 rounded-full"
-                                        src="{{ $post->author->avatar }}"
+                                    <img class="w-7 h-7 rounded-full" src="{{ $post->author->avatar }}"
                                         alt="Jese Leos avatar" />
                                 </a>
                                 <a href="/author?{{ $post->author->username }}">
@@ -65,8 +115,8 @@
                     </div>
                 @endforelse
             </div>
-            </div>
-            {{$posts->links()}}
+        </div>
+        {{ $posts->links() }}
     </x-layout>
 </body>
 

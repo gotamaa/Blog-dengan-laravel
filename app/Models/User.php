@@ -10,16 +10,14 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Events\Registered;
 use Usamamuneerchaudhary\Commentify\Traits\HasUserAvatar;
-
-
-
+use Spatie\Permission\Traits\HasRoles;
 // class User extends Authenticatable implements MustVerifyEmail
 class User extends Authenticatable implements MustVerifyEmail
 {
 
 
 
-    use HasFactory, Notifiable,HasUserAvatar;
+    use HasFactory,HasRoles, Notifiable,HasUserAvatar;
 
     protected static function booted()
     {

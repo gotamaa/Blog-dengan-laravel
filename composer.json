@@ -10,6 +10,7 @@
         "laravel/tinker": "^2.9",
         "laravel/ui": "^4.5",
         "livewire/livewire": "^3.5",
+        "spatie/laravel-permission": "^6.9",
         "usamamuneerchaudhary/commentify": "^1.5"
     },
     "require-dev": {
