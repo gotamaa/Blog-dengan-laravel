@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
         ModelsPermission::create(['name' => 'read posts']);
         ModelsPermission::create(['name' => 'delete posts']);
         ModelsPermission::create(['name' => 'update posts']);
-        ModelsPermission::create(['name' => 'delete users']);
+        ModelsPermission::create(['name' => 'manage users']);
 
         $role_author->givePermissionTo('create posts');
         $role_author->givePermissionTo('read posts');
@@ -39,7 +39,7 @@ class UserSeeder extends Seeder
         $role_admin->givePermissionTo('read posts');
         $role_admin->givePermissionTo('delete posts');
         $role_admin->givePermissionTo('update posts');
-        $role_admin->givePermissionTo('delete users');
+        $role_admin->givePermissionTo('manage users');
 
         // Assign 'author' role to each author
         $authors->each(function ($author) {

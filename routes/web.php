@@ -6,6 +6,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SignupController;
+use App\Http\Controllers\UserController;
 use App\Models\Category;
 use App\Models\User;
 use App\Http\Middleware\CountViews;
@@ -73,3 +74,7 @@ route::get('/manageposts', [PostController::class, 'manage'])->name('manage-post
 route::get('/managepost/edit/{post:slug}', [PostController::class, 'editform'])->middleware('auth', 'verified');
 route::patch('/managepost/edit/{post:slug}', [PostController::class, 'update'])->name('manageposts.update')->middleware('auth', 'verified');
 Route::delete('/manageposts/{post}', [PostController::class, 'destroy'])->name('manageposts.destroy')->middleware('auth', 'verified');
+
+//user managment
+Route::get('/manage-users', [UserController::class, 'index'])->name('users.index')->middleware('can:manage users');
+Route::delete('/manage-users', [UserController::class, 'destroy'])->name('users.destroy');

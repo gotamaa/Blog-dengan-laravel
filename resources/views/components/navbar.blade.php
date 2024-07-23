@@ -25,6 +25,9 @@
                             <x-nav-link href="/home" :active="request()->Is('home')">Home</x-nav-link>
                             <x-nav-link href="posts" :active="request()->Is('posts')">Blog</x-nav-link>
                             <x-nav-link href="uploadpost" :active="request()->Is('postarticle')">Post Your Article</x-nav-link>
+                            @can('manage users')
+                            <x-nav-link href="/manage-users" :active="request()->Is('manageuser')">Manage User</x-nav-link>
+                            @endcan
                         </div>
                     </div>
                 </div>
