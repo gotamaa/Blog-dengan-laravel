@@ -31,7 +31,7 @@
         </div>
     </nav>
 
-    <form method="POST" action="{{ route('manageposts.update', $post->id) }}">
+    <form method="POST" action="{{ route('manageposts.update', $post->slug) }}">
         @csrf
         @method('PATCH')
 

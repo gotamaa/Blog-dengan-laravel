@@ -18,7 +18,6 @@ class Post extends Model
         $this->attributes['title'] = $value;
         $this->attributes['slug'] = Str::slug($value);
     }
-
     public static function boot()
     {
         parent::boot();
@@ -33,7 +32,19 @@ class Post extends Model
             }
             $post->slug = $slug;
         });
+
+        static::updating(function ($post) {
+            $slug = Str::slug($post->title);
+            $original_slug = $slug;
+            $count = 1;
+            while (static::where('slug', $slug)->exists()) {
+                $slug = $original_slug . '-' . $count;
+                $count++;
+            }
+            $post->slug = $slug;
+        });
     }
+
 
     protected $with =['author','category'];
     public function author(): BelongsTo

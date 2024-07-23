@@ -80,19 +80,24 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, Post $post): RedirectResponse
     {
-        $request->validate([
+            $request->validate([
             'title' => 'required','string','max:50',
             'category'=> 'required','exists:categories,category_id',
             'body' => 'required','string','max:250',
         ]);
+        if(Auth::user()->id !== $post->author_id){
+            abort(403, 'Unauthorized action.');
+        }
+        else{
         $post->update([
         'title'=>$request->title,
         'category_id'=>$request->category,
         'body'=>$request->body,
         ]);
         return to_route('manage-post')->with('success', 'Post updated successfully.');
+    }
     }
 
     public function editform(Request $request, Post $post)
@@ -108,6 +113,6 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
     $post->delete();
-    return to_route('manage-post')->with('success', 'Post deleted successfully.');
+    return back()->with('success', 'Post deleted successfully.');
     }
 }
